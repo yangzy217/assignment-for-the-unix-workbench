@@ -1,24 +1,26 @@
 #!/usr/bin/env bash
 # File: gussinggame.sh
 
-# As the assignment requires, I make the following function, though I think there is no need to make a function.
-function print_read {
-  echo $1
+function read_check {
   read guess
+	while [[ "$guess" =~ [^0-9] ]]
+	do
+		echo "please input a number"
+		read guess
+	done
 }
-#filnum stores the number of file in the current directory.
 filnum=$(ls | wc -l)
-#Ask user to guess how many files in the current directory and the get the input.
-print_read "guess how many files in the current directory"
-#While the user's guess is not correct, then check and respond whether it's too high or too low.
+echo "guess how many files in the current directory"
+read_check
 while [[ $guess -ne $filnum ]]
 do
   if [[ $guess -gt $filnum ]]
   then
-    print_read "too high, guess again"
+    echo "too high, guess again"
+		read_check
   else
-    print_read "too low, guess again"
+    echo "too low, guess again"
+		read_check
   fi
 done
-#When the user's guess is correct, then output congratulation.
   echo "Congratulation!"
